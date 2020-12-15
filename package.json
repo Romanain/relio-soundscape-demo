@@ -1,0 +1,20 @@
+{
+  "name": "relio-soundscape-demo",
+  "version": "1.0.0",
+  "description": "Relio soundscape demo with websocket",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "Romain Toebosch",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "socket.io": "^3.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
