@@ -28,7 +28,8 @@ io.on('connection', socket => {
         socket.join(user.room);
 
         // Welcome current user
-        socket.emit('message', formatMessage(botName, 'Welcome to the Relio Soundscape Demo! For more information on our project, go to www.relio.com'));
+        socket.emit('message', formatMessage(botName, 'Welcome to the Relio Soundscape Demo! For the best soundscape experience, we recommend the use of headphones'));
+        socket.emit('message', formatMessage(botName, 'As the looping of samples is not yet fully functional, you might experience some arttefacts between sounds'));
 
         // Broadcast when a user connects
         socket.broadcast
