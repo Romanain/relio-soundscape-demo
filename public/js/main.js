@@ -25,19 +25,19 @@ var talking_filenames = ['talking_calm', 'talking_moderate', 'talking_busy'];
 
 for (i = 0; i < 3; i++) {
   enter_sounds.push(new Howl({
-    src: [`sounds/${enter_filenames[i]}.aac`]
+    src: [`sounds/${enter_filenames[i]}-converted.ogg`]
   }))
 }
 
 for (i = 0; i < 3; i++) {
   left_sounds.push(new Howl({
-    src: [`sounds/${left_filenames[i]}.aac`]
+    src: [`sounds/${left_filenames[i]}-converted.ogg`]
   }))
 }
 
 for (i = 0; i < 4; i++) {
   ambiance_sounds.push(new Howl({
-    src: [`sounds/${ambiance_filenames[i]}.aac`],
+    src: [`sounds/${ambiance_filenames[i]}-converted.ogg`],
     loop: true,
     volume: 0
   }))
