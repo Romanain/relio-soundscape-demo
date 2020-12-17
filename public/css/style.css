@@ -126,6 +126,7 @@ a {
 .log-form-container {
 	padding: 20px 30px;
 	background-color: var(--dark-color-a);
+	border-radius: 0px 0px 5px 5px;
 }
 
 .log-form-container form {
@@ -200,3 +201,46 @@ a {
 		display: none;
 	}
 }
+
+.slidecontainer {
+	width: 100%; 
+  }
+  
+.slider {
+	-webkit-appearance: none;  
+	appearance: none;
+	width: 100%; 
+	height: 10px; 
+	background: #d3d3d3; 
+	outline: none; 
+	opacity: 0.7; 
+	-webkit-transition: .2s; 
+	transition: opacity .2s;
+	border-radius: 25px;
+}
+
+
+.slider:hover {
+	opacity: 1; 
+}
+
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none; 
+	appearance: none;
+	width: 25px; 
+	height: 25px; 
+	background:var(--light-color); 
+	cursor: pointer; 
+	border-radius: 25px;
+	border: none;
+}
+
+.slider::-moz-range-thumb {
+	width: 25px; 
+	height: 25px; 
+	background: var(--light-color); 
+	cursor: pointer; 
+	border-radius: 25px;
+	border: none;
+	}

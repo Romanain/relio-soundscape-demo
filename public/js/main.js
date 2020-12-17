@@ -20,7 +20,7 @@ var left_sounds = [];
 var left_filenames = ['left_far', 'left_med', 'left_close'];
 var ambiance_sounds = [], amb_play = [];
 var ambiance_filenames = ['ambiance_very_calm', 'ambiance_calm', 'ambiance_moderate', 'ambiance_busy'];
-var talking_sounds = [];
+var talking_sounds = [], tlk_play = [];
 var talking_filenames = ['talking_calm', 'talking_moderate', 'talking_busy'];
 
 for (i = 0; i < 3; i++) {
@@ -44,16 +44,16 @@ for (i = 0; i < 4; i++) {
   amb_play.push(ambiance_sounds[i].play());
 }
 
-// ambiance_sounds[0].fade(1, 0, 3000, amb_play[0]);
-
 for (i = 0; i < 3; i++) {
   talking_sounds.push(new Howl({
     src: [`sounds/${talking_filenames[i]}-converted.ogg`],
-    auoplay: true,
     loop: true,
     volume: 0
   }));
+  tlk_play.push(talking_sounds[i].play());
 }
+
+var slider = document.getElementById("myRange");
 
 var old_a = 0, old_t = -1, new_a = 0, new_t = -1
 var first_round = true;
@@ -65,8 +65,10 @@ socket.on('message', message => {
 
   if (message.type == 'joined') {
     enter_sounds[1].play();
+    console.log('Play enter');
   } else if (message.type == 'left') {
     left_sounds[1].play();
+    console.log('Play leave');
   }
 
   // Get room and users
@@ -97,18 +99,25 @@ socket.on('message', message => {
       ambiance_sounds[new_a].fade(0, 1, 3000, amb_play[new_a]);
       console.log(new_a, old_a);
     }
+
+    if (old_t !== new_t) {
+      if (old_t >= 0) {
+        talking_sounds[old_t].fade(1, 0, 3000);
+        console.log(`Old talking ${old_t}`)
+      }
+      if (new_t >= 0) {
+        talking_sounds[new_t].fade(0, 1, 3000);
+        console.log(`New talking ${new_t}`)
+      }
+    }
+
+    //Initialize sounds first round
     if (first_round) {
       ambiance_sounds[new_a].fade(0, 1, 3000, amb_play[new_a]);
-      // talking_sounds[new_t].fade(0, 1, 3000, tlk_play[new_t]);
+      if (new_t >= 0) {
+        talking_sounds[new_t].fade(0, 1, 3000, tlk_play[new_t]);
+      }
     }
-    // if (old_t !== new_t ) {
-    //   if (old_t >= 0) {
-    //     talking_sounds[old_t].fade(1, 0, 3000);
-    //   }
-    //   if (new_t >= 0) {
-    //     talking_sounds[new_t].fade(0, 1, 3000);
-    //   }
-    // }
 
     first_round = false;
   });
@@ -140,4 +149,11 @@ function outputUsers(users) {
     li.innerText = user.username;
     userList.appendChild(li);
   });
+}
+
+slider.oninput = function () {
+  console.log(this.value / 100)
+  if (this.value <= 100) {
+    Howler.volume(this.value / 100);
+  }
 }
