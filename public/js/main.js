@@ -64,17 +64,22 @@ socket.on('message', message => {
   outputMessage(message);
 
   if (message.type == 'joined') {
-    enter_sounds[1].play();
+    enter_sounds[message.closeness].play();
     console.log('Play enter');
   } else if (message.type == 'left') {
-    left_sounds[1].play();
+    left_sounds[message.closeness].play();
     console.log('Play leave');
   }
 
   // Get room and users
   socket.on('roomUsers', ({ room, users }) => {
-    outputUsers(users);
-    console.log(users);
+    filteredUsers = users.filter(function (value, index, arr) {
+      return value.username !== username;
+    }).sort((a, b) => {
+      return b.closeness - a.closeness;
+    })
+    outputUsers(filteredUsers);
+    console.log(filteredUsers);
 
     old_a = new_a;
     old_t = new_t;
@@ -146,13 +151,13 @@ function outputUsers(users) {
   userList.innerHTML = '';
   users.forEach((user) => {
     const li = document.createElement('li');
+    li.classList.add(`closeness-${user.closeness}`)
     li.innerText = user.username;
     userList.appendChild(li);
   });
 }
 
 slider.oninput = function () {
-  console.log(this.value / 100)
   if (this.value <= 100) {
     Howler.volume(this.value / 100);
   }

@@ -23,7 +23,16 @@ const botName = 'Relio logger';
 // Run when client connects
 io.on('connection', socket => {
     socket.on('joinRoom', ({ username, room }) => {
-        const user = userJoin(socket.id, username, room);
+        var closeness, rand = Math.floor(Math.random() * 6);
+        if (rand > 4) {
+            closeness = 2;
+        } else if (rand > 2) {
+            closeness = 1;
+        } else {
+            closeness = 0;
+        }
+
+        const user = userJoin(socket.id, username, room, closeness);
 
         socket.join(user.room);
 
@@ -35,7 +44,7 @@ io.on('connection', socket => {
             .to(user.room)
             .emit(
                 'message',
-                formatMessage(botName, `${user.username} entered the office`, 'joined')
+                formatMessage(botName, `${user.username} entered the office`, 'joined', closeness)
             );
 
         // Send users and room info
@@ -52,7 +61,7 @@ io.on('connection', socket => {
         if (user) {
             io.to(user.room).emit(
                 'message',
-                formatMessage(botName, `${user.username} left the office`, 'left')
+                formatMessage(botName, `${user.username} left the office`, 'left', user.closeness)
             );
 
             // Send users and room info

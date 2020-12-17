@@ -243,4 +243,23 @@ a {
 	cursor: pointer; 
 	border-radius: 25px;
 	border: none;
-	}
+}
+
+
+.closeness-2 {
+	font-weight: bold;
+	color:rgb(0, 0, 0);
+	font-size: 1rem;
+}
+
+.closeness-1 {
+	font-weight: bold;
+	color:rgb(130, 130, 130);
+	font-size: .9rem;
+}
+
+.closeness-0 {
+	font-weight: bold;
+	color:rgb(190, 190, 190);
+	font-size: .8rem;
+}
