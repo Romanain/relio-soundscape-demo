@@ -14,4 +14,4 @@ For development, [Nodemon](https://nodemon.io/) is used to automatically reload 
 
 
 
-*The code editor used for to make this project is [Visual Studio Code](https://code.visualstudio.com/)*
+*This project was nade using [Visual Studio Code](https://code.visualstudio.com/)*.
